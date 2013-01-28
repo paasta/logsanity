@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+cd `dirname $0`
+. stdlib.sh
+cd ..
+
+echo Nothing to do !

@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+cd `dirname $0`
+. stdlib.sh
+cd ..
+
+CONFIG_PATH=$1
+
+if [ `id -u` != "0" ]; then
+  fail "Please run this script as root: sudo $0 $@"
+fi
+
+if [ -z "$CONFIG_PATH" ]; then
+  fail "Missing the first argument: the path to the config file"
+fi
+
+if ! [ -f "$CONFIG_PATH" ]; then
+  fail "Config file not found at $CONFIG_PATH"
+fi
+
+# Install project's runtime dependencies
+
+if ! has ruby1.9.3 ; then
+  install ruby1.9.3
+fi
+
+exec bin/chef-solo -c config/chef-solo.rb -j $CONFIG_PATH

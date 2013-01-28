@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+cd `dirname $0`
+. stdlib.sh
+cd ..
+
+# FIXME: This should be handled by a dependency system
+if ! has ruby1.9.3 ; then
+  sudo apt-get install -qy ruby1.9.3 build-essential
+  echo gem: --no-ri --no-rdoc | sudo tee /etc/gemrc
+  sudo gem install bundler
+  sudo gem install berkshelf
+fi
+
+if ! has git ; then
+  sudo apt-get install -qy git
+fi
+
+bundle install --deployment --binstubs=bin --without=development,test
+berks install --path vendor/cookbooks
