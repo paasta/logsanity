@@ -1,19 +1,99 @@
-cookbook 'logstash', :git => 'git://github.com/lusis/chef-logstash.git', :ref => '760b456a4ba304523a97cf97854291ae4676b2a7'
-cookbook 'apache2', :locked_version => '1.2.0'
-cookbook 'php', :locked_version => '1.1.0'
-cookbook 'build-essential', :locked_version => '1.1.2'
-cookbook 'xml', :locked_version => '1.0.4'
-cookbook 'mysql', :locked_version => '1.3.0'
-cookbook 'openssl', :locked_version => '1.0.0'
-cookbook 'git', :locked_version => '1.0.2'
-cookbook 'dmg', :locked_version => '1.0.0'
-cookbook 'runit', :locked_version => '0.15.0'
-cookbook 'yum', :locked_version => '1.0.0'
-cookbook 'python', :locked_version => '1.0.8'
-cookbook 'java', :locked_version => '1.6.0'
-cookbook 'ant', :locked_version => '0.10.1'
-cookbook 'jpackage', :locked_version => '0.10.0'
-cookbook 'logrotate', :locked_version => '0.8.2'
-cookbook 'rabbitmq', :locked_version => '1.6.2'
-cookbook 'apt', :locked_version => '1.4.8'
-cookbook 'erlang', :locked_version => '1.0.0'
+{
+  "sha": "92eaf7134c7c7898ff46a8b25694a0c87e6b2a61",
+  "sources": {
+    "log-service": {
+      "locked_version": "0.1.0",
+      "constraint": "= 0.1.0",
+      "path": "."
+    },
+    "machine-base": {
+      "locked_version": "1.0.0",
+      "git": "git://github.com/zimbatm/machine-base.git",
+      "ref": "013b445fa68b92b8613955f0543598cf20927c2a"
+    },
+    "logstash": {
+      "locked_version": "0.6.1",
+      "git": "git://github.com/lusis/chef-logstash.git",
+      "ref": "4235b6140902266624e0286ed46b5dd24ff9836f"
+    },
+    "elasticsearch": {
+      "locked_version": "0.3.0",
+      "git": "git://github.com/elasticsearch/cookbook-elasticsearch.git",
+      "ref": "be26b51f6c781536229e80ffd27e2e03970353a4"
+    },
+    "build-essential": {
+      "locked_version": "1.1.2"
+    },
+    "logrotate": {
+      "locked_version": "0.8.2"
+    },
+    "openssh": {
+      "locked_version": "1.0.0"
+    },
+    "python": {
+      "locked_version": "1.0.8"
+    },
+    "yum": {
+      "locked_version": "1.0.0"
+    },
+    "yumrepo": {
+      "locked_version": "0.16.6"
+    },
+    "apt": {
+      "locked_version": "1.4.8"
+    },
+    "apache2": {
+      "locked_version": "1.2.0"
+    },
+    "php": {
+      "locked_version": "1.1.0"
+    },
+    "xml": {
+      "locked_version": "1.0.4"
+    },
+    "mysql": {
+      "locked_version": "1.3.0"
+    },
+    "openssl": {
+      "locked_version": "1.0.0"
+    },
+    "git": {
+      "locked_version": "1.0.2"
+    },
+    "dmg": {
+      "locked_version": "1.0.0"
+    },
+    "runit": {
+      "locked_version": "0.15.0"
+    },
+    "rbenv": {
+      "locked_version": "1.4.2"
+    },
+    "ohai": {
+      "locked_version": "1.1.6",
+      "constraint": ">= 1.1.0"
+    },
+    "java": {
+      "locked_version": "1.6.0"
+    },
+    "ant": {
+      "locked_version": "0.10.1"
+    },
+    "jpackage": {
+      "locked_version": "0.10.0"
+    },
+    "rabbitmq": {
+      "locked_version": "1.6.2"
+    },
+    "erlang": {
+      "locked_version": "1.0.0",
+      "constraint": ">= 0.9.0"
+    },
+    "monit": {
+      "locked_version": "0.7.0"
+    },
+    "ark": {
+      "locked_version": "0.0.17"
+    }
+  }
+}
