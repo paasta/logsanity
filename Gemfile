@@ -1,7 +1,8 @@
 source :rubygems
 
-gem "chef"
+gem 'chef'
 
 group :development do
-  gem "berkshelf"
+  gem 'berkshelf'
+  gem 'thor-foodcritic'
 end

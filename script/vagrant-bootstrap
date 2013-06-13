@@ -1,0 +1,17 @@
+#!/bin/bash
+#
+# This script prepares the system to run chef.
+#
+
+set -e
+
+has() {
+  which $1 >/dev/null 2>&1
+  return $?
+}
+
+# TODO: Remove the dependency on that external service
+if ! has chef-solo ; then
+  apt-get update
+  curl -s -L https://www.opscode.com/chef/install.sh | bash
+fi

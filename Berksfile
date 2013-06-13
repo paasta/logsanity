@@ -1,5 +1,7 @@
 site :opscode
 
-# TODO: use machine-base cookbook
-cookbook 'logstash', git: "git://github.com/lusis/chef-logstash.git"
-cookbook 'elasticsearch', git: "git://github.com/elasticsearch/cookbook-elasticsearch.git"
+metadata
+
+cookbook 'machine-base', github: 'zimbatm/machine-base'
+cookbook 'logstash', github: 'lusis/chef-logstash'
+cookbook 'elasticsearch', github: 'elasticsearch/cookbook-elasticsearch'
