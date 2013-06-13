@@ -1,4 +1,4 @@
-set[:elasticsearch][:version]                 = '0.20.4'
+set[:elasticsearch][:version]                 = '0.90.1'
 set[:elasticsearch][:cluster][:name]          = 'elasticsearch'
 set[:logstash][:index_cleaner][:days_to_keep] = 7
 set[:logstash][:server][:install_rabbitmq]    = false
