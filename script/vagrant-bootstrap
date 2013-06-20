@@ -10,8 +10,9 @@ has() {
   return $?
 }
 
-# TODO: Remove the dependency on that external service
 if ! has chef-solo ; then
   apt-get update
-  curl -s -L https://www.opscode.com/chef/install.sh | bash
+  wget -nv -c https://www.opscode.com/chef/install.sh
+  chmod +x install.sh
+  ./install.sh -v 11.4.4
 fi
