@@ -152,9 +152,6 @@ GEM
       safe_yaml
       thor
     thor (0.18.1)
-    thor-foodcritic (0.2.0)
-      foodcritic
-      thor
     timers (1.1.0)
     treetop (1.4.14)
       polyglot
@@ -178,4 +175,4 @@ PLATFORMS
 DEPENDENCIES
   berkshelf
   chef
-  thor-foodcritic
+  foodcritic
