@@ -1,7 +1,7 @@
 {
   "sha": "b44c92cf4592a0bd1915351d6512c0e4b6a14706",
   "sources": {
-    "log-service": {
+    "logsanity": {
       "locked_version": "0.1.0",
       "constraint": "= 0.1.0",
       "path": "."

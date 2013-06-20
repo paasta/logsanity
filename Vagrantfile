@@ -18,7 +18,7 @@ Vagrant.configure("2") do |config|
   config.vm.provision :shell, path: 'script/vagrant-bootstrap'
 
   config.vm.provision :chef_solo do |chef|
-    chef.add_recipe "log-service"
+    chef.add_recipe "logsanity"
     #chef.json = {}
   end
 end

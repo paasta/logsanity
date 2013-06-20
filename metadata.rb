@@ -1,4 +1,4 @@
-name             "log-service"
+name             "logsanity"
 maintainer       "Jonas Pfenniger"
 maintainer_email "jonas@mediacore.com"
 license          "MIT"
