@@ -1,9 +1,5 @@
 include_recipe 'machine-base'
 
-include_recipe 'elasticsearch'
-if node[:ec2]
-  include_recipe 'elasticsearch::aws'
-end
-
-include_recipe 'logstash::server'
-include_recipe 'logstash::index_cleaner'
+include_recipe 'log-service::elasticsearch'
+include_recipe 'log-service::logstash'
+include_recipe 'log-service::kibana'

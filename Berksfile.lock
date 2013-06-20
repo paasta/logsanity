@@ -1,40 +1,62 @@
 {
-  "sha": "92eaf7134c7c7898ff46a8b25694a0c87e6b2a61",
+  "sha": "b44c92cf4592a0bd1915351d6512c0e4b6a14706",
   "sources": {
     "log-service": {
       "locked_version": "0.1.0",
       "constraint": "= 0.1.0",
       "path": "."
     },
-    "machine-base": {
-      "locked_version": "1.0.0",
-      "git": "git://github.com/zimbatm/machine-base.git",
-      "ref": "013b445fa68b92b8613955f0543598cf20927c2a"
+    "ark": {
+      "locked_version": "0.3.1",
+      "git": "git://github.com/opscode-cookbooks/ark.git",
+      "ref": "84a52f468e55cc2e6e6b224f7360cb4a99046ec8"
+    },
+    "elasticsearch": {
+      "locked_version": "0.3.1",
+      "git": "git://github.com/elasticsearch/cookbook-elasticsearch.git",
+      "ref": "eed9415ccbc2f8ff4bb962ecf76e48e86fcc9c0a"
     },
     "logstash": {
       "locked_version": "0.6.1",
       "git": "git://github.com/lusis/chef-logstash.git",
       "ref": "4235b6140902266624e0286ed46b5dd24ff9836f"
     },
-    "elasticsearch": {
-      "locked_version": "0.3.0",
-      "git": "git://github.com/elasticsearch/cookbook-elasticsearch.git",
-      "ref": "be26b51f6c781536229e80ffd27e2e03970353a4"
+    "machine-base": {
+      "locked_version": "1.0.0",
+      "git": "git://github.com/zimbatm/machine-base.git",
+      "ref": "013b445fa68b92b8613955f0543598cf20927c2a"
+    },
+    "nginx": {
+      "locked_version": "1.2.0"
+    },
+    "bluepill": {
+      "locked_version": "2.2.0"
+    },
+    "rsyslog": {
+      "locked_version": "1.1.0"
+    },
+    "yum": {
+      "locked_version": "1.0.0"
+    },
+    "runit": {
+      "locked_version": "0.15.0",
+      "constraint": "<= 0.16.2"
     },
     "build-essential": {
       "locked_version": "1.1.2"
     },
-    "logrotate": {
-      "locked_version": "0.8.2"
+    "ohai": {
+      "locked_version": "1.1.6",
+      "constraint": ">= 1.1.4"
     },
-    "openssh": {
-      "locked_version": "1.0.0"
+    "xml": {
+      "locked_version": "1.0.4"
     },
-    "python": {
-      "locked_version": "1.0.8"
+    "java": {
+      "locked_version": "1.6.0"
     },
-    "yum": {
-      "locked_version": "1.0.0"
+    "monit": {
+      "locked_version": "0.7.0"
     },
     "yumrepo": {
       "locked_version": "0.16.6"
@@ -48,9 +70,6 @@
     "php": {
       "locked_version": "1.1.0"
     },
-    "xml": {
-      "locked_version": "1.0.4"
-    },
     "mysql": {
       "locked_version": "1.3.0"
     },
@@ -63,24 +82,20 @@
     "dmg": {
       "locked_version": "1.0.0"
     },
-    "runit": {
-      "locked_version": "0.15.0"
-    },
     "rbenv": {
       "locked_version": "1.4.2"
     },
-    "ohai": {
-      "locked_version": "1.1.6",
-      "constraint": ">= 1.1.0"
-    },
-    "java": {
-      "locked_version": "1.6.0"
+    "python": {
+      "locked_version": "1.0.8"
     },
     "ant": {
       "locked_version": "0.10.1"
     },
     "jpackage": {
       "locked_version": "0.10.0"
+    },
+    "logrotate": {
+      "locked_version": "0.8.2"
     },
     "rabbitmq": {
       "locked_version": "1.6.2"
@@ -89,11 +104,8 @@
       "locked_version": "1.0.0",
       "constraint": ">= 0.9.0"
     },
-    "monit": {
-      "locked_version": "0.7.0"
-    },
-    "ark": {
-      "locked_version": "0.0.17"
+    "openssh": {
+      "locked_version": "1.0.0"
     }
   }
 }
