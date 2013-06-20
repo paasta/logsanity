@@ -1,3 +1,4 @@
 .bundle
 .kitchen
 .vagrant
+config/local.json
