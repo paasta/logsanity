@@ -1,5 +1,5 @@
 {
-  "sha": "5ccb8c80f90435f98e28c9486dbe2237476aef87",
+  "sha": "755cd5ed4d7a33a18168f851189fc1b7526d3a06",
   "sources": {
     "logsanity": {
       "locked_version": "0.1.0",
@@ -11,15 +11,19 @@
       "git": "git://github.com/elasticsearch/cookbook-elasticsearch.git",
       "ref": "eed9415ccbc2f8ff4bb962ecf76e48e86fcc9c0a"
     },
-    "logstash": {
-      "locked_version": "0.6.1",
-      "git": "git://github.com/lusis/chef-logstash.git",
-      "ref": "4235b6140902266624e0286ed46b5dd24ff9836f"
-    },
     "machine-base": {
       "locked_version": "1.0.0",
       "git": "git://github.com/zimbatm/machine-base.git",
       "ref": "013b445fa68b92b8613955f0543598cf20927c2a"
+    },
+    "java": {
+      "locked_version": "1.11.6"
+    },
+    "windows": {
+      "locked_version": "1.10.0"
+    },
+    "chef_handler": {
+      "locked_version": "1.1.4"
     },
     "nginx": {
       "locked_version": "1.7.0"
@@ -43,66 +47,23 @@
     "xml": {
       "locked_version": "1.1.2"
     },
-    "java": {
-      "locked_version": "1.11.6"
-    },
-    "windows": {
-      "locked_version": "1.10.0"
-    },
-    "chef_handler": {
-      "locked_version": "1.1.4"
-    },
     "monit": {
       "locked_version": "0.7.1"
     },
     "ark": {
       "locked_version": "0.3.0"
     },
-    "yumrepo": {
-      "locked_version": "0.16.6"
-    },
-    "apache2": {
-      "locked_version": "1.6.6"
-    },
-    "php": {
-      "locked_version": "1.2.2"
-    },
-    "mysql": {
-      "locked_version": "3.0.2"
-    },
-    "openssl": {
-      "locked_version": "1.0.2"
-    },
-    "git": {
-      "locked_version": "2.5.2"
-    },
-    "dmg": {
-      "locked_version": "1.1.0"
-    },
-    "rbenv": {
-      "locked_version": "1.4.2"
-    },
-    "python": {
-      "locked_version": "1.3.4"
-    },
-    "ant": {
-      "locked_version": "1.0.2"
-    },
     "logrotate": {
       "locked_version": "1.2.2"
-    },
-    "rabbitmq": {
-      "locked_version": "2.1.2"
-    },
-    "erlang": {
-      "locked_version": "1.3.0",
-      "constraint": ">= 0.9.0"
     },
     "openssh": {
       "locked_version": "1.2.0"
     },
     "iptables": {
       "locked_version": "0.12.0"
+    },
+    "python": {
+      "locked_version": "1.3.4"
     }
   }
 }

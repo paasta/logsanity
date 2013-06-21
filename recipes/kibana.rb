@@ -13,6 +13,7 @@ git node['kibana']['base_dir'] do
 end
 
 template File.join(node['kibana']['base_dir'], 'config.json') do
+  source 'kibana-config.json.erb'
   mode '0644'
 end
 

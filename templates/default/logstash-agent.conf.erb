@@ -1,0 +1,34 @@
+<%
+def to_config(list)
+  return '' unless list
+
+  list.inject({}) do |out, obj|
+    out + obj.map do |(name, config)|
+      chunk = []
+      chunk << "  #{name} {"
+      config.sort.each do |k, v|
+        key = k.class.to_s == 'Regex' ? k.inspect : k.to_s
+        value = (["Hash", "Mash"].include?(v.class.to_s) ? v.to_a.flatten : v).inspect
+        chunk << "    #{key} => #{value}"
+      end
+      chunk << '  }'
+      chunk.join("\n")
+    end
+  end.join("\n\n")
+end
+-%>
+input {
+<%= to_config(@config['inputs']) %>
+}
+
+filter {
+<%= to_config(@config['filters']) %>
+}
+
+output {
+<%= to_config(@config['outputs']) %>
+  elasticsearch => {
+    host => "<%= node['logstash']['elasticsearch_ip'] %>"
+    cluster => "<%= node['logstash']['elasticsearch_cluster'] %>"
+  }
+}

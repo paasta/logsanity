@@ -1,5 +1,12 @@
-set['logstash']['index_cleaner']['days_to_keep'] = 7
-set['logstash']['server']['install_rabbitmq']    = false
-set['logstash']['server']['enable_embedded_es']  = false
-set['logstash']['elasticsearch_ip'] = '127.0.0.1'
-set['logstash']['elasticsearch_cluster'] = node['elasticsearch']['cluster']['name']
+default['logstash']['package_url'] = 'http://logstash.objects.dreamhost.com/release/logstash-1.1.13-flatjar.jar'
+default['logstash']['user'] = 'logstash'
+default['logstash']['group'] = 'logstash'
+default['logstash']['base_dir'] = '/opt/logstash'
+default['logstash']['config_dir'] = '/etc/logstash'
+default['logstash']['pattern_dir'] = '/etc/logstash/patterns'
+default['logstash']['log_dir'] = '/var/log/logstash'
+default['logstash']['patterns'] = Mash.new
+default['logstash']['config'] = Mash.new
+default['logstash']['index_cleaner']['days_to_keep'] = 7
+default['logstash']['elasticsearch_ip'] = '127.0.0.1'
+default['logstash']['elasticsearch_cluster'] = node['elasticsearch']['cluster']['name'] || 'logstash'

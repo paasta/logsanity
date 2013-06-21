@@ -8,7 +8,7 @@ version          "0.1"
 
 %w[
   elasticsearch
-  logstash
+  java
   machine-base
   nginx
 ].each { |cb| depends cb }
