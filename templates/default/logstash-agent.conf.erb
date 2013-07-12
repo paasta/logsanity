@@ -27,7 +27,7 @@ filter {
 
 output {
 <%= to_config(@config['outputs']) %>
-  elasticsearch => {
+  elasticsearch {
     host => "<%= node['logstash']['elasticsearch_ip'] %>"
     cluster => "<%= node['logstash']['elasticsearch_cluster'] %>"
   }
