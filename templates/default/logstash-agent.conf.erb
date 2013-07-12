@@ -2,7 +2,7 @@
 def to_config(list)
   return '' unless list
 
-  list.inject({}) do |out, obj|
+  list.inject([]) do |out, obj|
     out + obj.map do |(name, config)|
       chunk = []
       chunk << "  #{name} {"

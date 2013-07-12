@@ -1,4 +1,3 @@
-# TODO: Add back the index cleaner
 include_recipe 'java'
 
 logstash_jar = File.join(
@@ -33,6 +32,11 @@ end
     mode '0755'
     recursive true
   end
+end
+
+template "/etc/cron.daily/logstash-index-cleanup" do
+  source "logstash-crontab.erb"
+  mode '0755'
 end
 
 directory File.dirname(logstash_jar) do

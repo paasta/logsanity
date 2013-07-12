@@ -7,6 +7,6 @@ default['logstash']['pattern_dir'] = '/etc/logstash/patterns'
 default['logstash']['log_dir'] = '/var/log/logstash'
 default['logstash']['patterns'] = Mash.new
 default['logstash']['config'] = Mash.new
-default['logstash']['index_cleaner']['days_to_keep'] = 7
+default['logstash']['days_to_keep'] = 7
 default['logstash']['elasticsearch_ip'] = '127.0.0.1'
 default['logstash']['elasticsearch_cluster'] = node['elasticsearch']['cluster']['name'] || 'logstash'
