@@ -7,9 +7,9 @@ long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          "0.1"
 
 %w[
+  base
   elasticsearch
   java
-  machine-base
   nginx
 ].each { |cb| depends cb }
 
