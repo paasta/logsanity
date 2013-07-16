@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+set -e
+
+. `dirname $0`/ploy-lib.sh
+
+CACHE_DIR=`expand_path "$1"`
+DESTDIR=`expand_path "$2"`
+
+if [ -z "$DESTDIR" ]; then
+  fail "Missing the first argument: the destination path"
+fi
+
+cd `dirname $0`/..
+
+## Build dependencies ##
+depend Dependfile build
+
+## Copying the release files ##
+rm -rf "$DESTDIR"
+mkdir -p "$DESTDIR"
+cp -r * "$DESTDIR"
+cd "$DESTDIR"
+
+## Installing the runtime dependencies ##
+bundle install --path=vendor --deployment --binstubs=bin --without="development test"
+berks install --path vendor/cookbooks

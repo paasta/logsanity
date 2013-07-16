@@ -1,10 +1,8 @@
 #!/usr/bin/env bash
 
-cd `dirname $0`
-. stdlib.sh
-cd ..
-
-CONFIG_PATH=$1
+. `dirname $0`/ploy-lib.sh
+CONFIG_PATH=`expand_path $1`
+cd `dirname $0`/..
 
 if [ `id -u` != "0" ]; then
   fail "Please run this script as root: sudo $0 $@"
@@ -19,9 +17,6 @@ if ! [ -f "$CONFIG_PATH" ]; then
 fi
 
 # Install project's runtime dependencies
+depend Dependfile runtime
 
-if ! has ruby1.9.3 ; then
-  install ruby1.9.3
-fi
-
-exec bin/chef-solo -c config/chef-solo.rb -j $CONFIG_PATH
+exec bin/chef-solo -c $PWD/config/chef-solo.rb -j $CONFIG_PATH

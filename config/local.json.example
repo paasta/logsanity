@@ -1,0 +1,6 @@
+{
+  "logstash": {
+    "config": { },
+    "patterns": { }
+  }
+}
