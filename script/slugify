@@ -23,5 +23,5 @@ cp -r * "$DESTDIR"
 cd "$DESTDIR"
 
 ## Installing the runtime dependencies ##
-bundle install --path=vendor --deployment --binstubs=bin --without="development test"
+bundle install --path=vendor --deployment --standalone --binstubs=bin --without="development test"
 berks install --path vendor/cookbooks
