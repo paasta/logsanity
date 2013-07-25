@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'chef'
+gem 'chef', '11.6.0'
 
 group :development do
   gem 'berkshelf'
