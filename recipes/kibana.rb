@@ -1,6 +1,6 @@
 include_recipe 'base'
-
 include_recipe 'nginx'
+
 package 'git'
 
 directory node['kibana']['base_dir'] do
