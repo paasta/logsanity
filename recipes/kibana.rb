@@ -1,3 +1,5 @@
+include_recipe 'base'
+
 include_recipe 'nginx'
 package 'git'
 

@@ -1,3 +1,4 @@
+include_recipe 'base'
 include_recipe 'java'
 
 logstash_jar = File.join(
