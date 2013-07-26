@@ -1,8 +1,8 @@
 {
     "template": "logstash-*",
     "settings" : {
-        "number_of_shards" : 3,
-        "number_of_replicas" : 0,
+        "number_of_shards" : 5,
+        "number_of_replicas" : 1,
         "index" : {
             "query" : { "default_field" : "@message" },
             "store" : { "compress" : { "stored" : true, "tv": true } }
