@@ -1,6 +1,13 @@
 #
 # Nginx proxy for Elasticsearch + Kibana
 #
+
+upstream elasticsearch {
+  <% for server in node['kibana']['elasticsearch_servers'] %>
+  server <%= server %>;
+  <% end %>
+}
+
 server {
   listen                *:80 ;
 
@@ -17,7 +24,7 @@ server {
   }
 
   location @elasticsearch {
-    proxy_pass <%= node['kibana']['es_url'] %>;
+    proxy_pass http://elasticsearch;
     proxy_read_timeout 90;
   }
 }

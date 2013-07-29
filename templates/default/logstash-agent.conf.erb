@@ -28,7 +28,7 @@ filter {
 output {
 <%= to_config(@config['outputs']) %>
   elasticsearch {
-    host => "<%= node['logstash']['elasticsearch_ip'] %>"
+    embedded => false
     cluster => "<%= node['logstash']['elasticsearch_cluster'] %>"
   }
 }

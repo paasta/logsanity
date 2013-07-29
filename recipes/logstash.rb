@@ -7,11 +7,6 @@ logstash_jar = File.join(
   File.basename(node['logstash']['package_url'])
 )
 
-template_path = File.join(
-  node['logstash']['config_dir'],
-  "logstash-template.json"
-)
-
 group node['logstash']['group']
 user node['logstash']['user'] do
   comment 'logstash'
@@ -33,11 +28,6 @@ end
     mode '0755'
     recursive true
   end
-end
-
-template "/etc/cron.daily/logstash-index-cleanup" do
-  source "logstash-crontab.erb"
-  mode '0755'
 end
 
 directory File.dirname(logstash_jar) do
@@ -74,38 +64,40 @@ node['logstash']['config'].each_pair do |key, config|
     action :nothing
   end
 
-  template "#{node['logstash']['config_dir']}/#{key}.conf" do
-    source 'logstash-agent.conf.erb'
-    owner node['logstash']['user']
-    group node['logstash']['group']
-    mode '0644'
-    variables(
-      config: config
-    )
-    notifies :restart, "service[#{service_name}]"
+  # Remove a logstash config by using an empty config
+  if config.empty?
+
+    file "#{node['logstash']['config_dir']}/#{key}.conf" do
+      action :delete
+      notifies :stop, "service[#{service_name}]"
+    end
+
+    file "/etc/init/#{service_name}.conf" do
+      action :delete
+    end
+
+  else
+
+    template "#{node['logstash']['config_dir']}/#{key}.conf" do
+      source 'logstash-agent.conf.erb'
+      owner node['logstash']['user']
+      group node['logstash']['group']
+      mode '0644'
+      variables(
+        config: config
+      )
+      notifies :restart, "service[#{service_name}]"
+    end
+
+    template "/etc/init/#{service_name}.conf" do
+      source 'logstash-upstart.conf.erb'
+      mode '0644'
+      variables(
+        logstash_jar: logstash_jar,
+        name: key,
+      )
+      notifies :restart, "service[#{service_name}]"
+    end
+
   end
-
-  template "/etc/init/#{service_name}.conf" do
-    source 'logstash-upstart.conf.erb'
-    mode '0644'
-    variables(
-      logstash_jar: logstash_jar,
-      name: key,
-    )
-    notifies :restart, "service[#{service_name}]"
-  end
 end
-
-# Setup the ES index template
-
-template template_path do
-  mode "0644"
-end
-
-# FIXME: Might not work on the first run
-execute "install-logstash-template" do
-  command "curl -XPUT 'http://#{node['logstash']['elasticsearch_ip']}:9200/_template/logstash/' -d @#{template_path}"
-  retries 6
-  retry_delay 10
-end
-

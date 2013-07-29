@@ -19,4 +19,4 @@ fi
 # Install project's runtime dependencies
 depend Dependfile runtime
 
-exec bin/chef-solo -c $PWD/config/chef-solo.rb -j $CONFIG_PATH
+exec bin/chef-solo -c $PWD/script/chef-solo.rb -j $CONFIG_PATH
