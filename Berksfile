@@ -3,4 +3,6 @@ site :opscode
 metadata
 
 cookbook 'base', github: 'zimbatm/base-cookbook'
-cookbook 'elasticsearch', github: 'elasticsearch/cookbook-elasticsearch'
+cookbook 'elasticsearch',
+  github: 'zimbatm/cookbook-elasticsearch',
+  branch: 'fixes'

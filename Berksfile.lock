@@ -10,8 +10,8 @@
     },
     "elasticsearch": {
       "locked_version": "0.3.1",
-      "git": "git://github.com/elasticsearch/cookbook-elasticsearch.git",
-      "ref": "eed9415ccbc2f8ff4bb962ecf76e48e86fcc9c0a"
+      "git": "git://github.com/zimbatm/cookbook-elasticsearch.git",
+      "ref": "92447119d50298f38e27573b6cf523154c485276"
     },
     "java": {
       "locked_version": "1.11.6"
