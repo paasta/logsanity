@@ -21,7 +21,7 @@ rm -rf "$DESTDIR"
 mkdir -p "$DESTDIR"
 cp -r * "$DESTDIR"
 cd "$DESTDIR"
-rm -rf config
+rm -rf config/
 
 ## Installing the runtime dependencies ##
 bundle install --path=vendor --binstubs=bin --deployment --standalone --without="development test"
