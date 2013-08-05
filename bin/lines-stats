@@ -1,0 +1,84 @@
+#!/usr/bin/env ruby
+
+require 'json'
+require 'lines'
+require 'optparse'
+require 'socket'
+require 'syslog'
+require 'time'
+
+@host   = 'localhost'
+@port   = 2003
+@socket = UDPSocket.new
+Lines.use(Syslog, app: 'lines-stats')
+
+OptionParser.new do |opts|
+  opts.on('-h', '--host HOST', "Host") do |h|
+    @host = h
+  end
+  opts.on('-p', '--port PORT', Integer, "Port") do |p|
+    @port = p
+  end
+end.parse!(ARGV)
+
+def send(prefix, value, timestamp)
+  key = prefix.join('.')
+
+  # Normalise key
+  key.gsub!(/\s+/, '_')
+  key.gsub!(/\//, '-')
+  key.gsub!(/[^a-zA-Z_\-0-9\.]/, '')
+
+  Lines.log('metric', key: key, value: value, timestamp: timestamp)
+  msg = "#{key} #{value} #{timestamp}\n"
+  @socket.send(msg, 0, @host, @port)
+end
+def record_metric(prefix, value, at)
+  return unless value
+
+  type = :counter
+
+  if value.kind_of?(Array)
+    case value[1]
+    when 'ms'
+      type = :timer
+      value = value[0]
+    when 's'
+      type = :timer
+      value = value[0] * 1000
+    else
+      value = value[0]
+    end
+  end
+
+  send prefix + [type], value, at.to_i
+rescue => ex
+  Lines.log ex, record_metric: [prefix, value, at]
+end
+
+def parse_and_send_metric(line)
+  event = JSON.load(line)
+
+  at = Time.parse event['@timestamp']
+  app = event['@type']
+  host = event['@source_host']
+  process = event['@fields']['syslog_program']
+  prefix = [app, host, process]
+  line = Lines.load  event['@message']
+
+  record_metric(prefix + [line['measure']], line['elapsed'], at) if line['measure']
+
+  vars = line.keys.grep(/^measure[_\.].*/)
+  vars.each do |var|
+    name = var['measure_'.size..-1].gsub('_', '.')
+    record_metric(prefix + [name], line[var], at)
+  end
+rescue Lines::Loader::ParseError => ex
+  Lines.log "Parse error: " + ex.message, line: event['@message']
+rescue => ex
+  Lines.log ex
+end
+
+while line = STDIN.gets
+  parse_and_send_metric(line)
+end
