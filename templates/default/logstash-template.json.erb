@@ -1,36 +1,36 @@
 {
-    "template": "logstash-*",
-    "settings" : {
-        "number_of_shards" : 5,
-        "number_of_replicas" : 1,
-        "index" : {
-            "query" : { "default_field" : "@message" },
-            "store" : { "compress" : { "stored" : true, "tv": true } }
-        }
+  "settings": {
+    "index": {
+      "store": {"compress": {"tv": true, "stored": true}},
+      "query": {"default_field": "@message"}
     },
-    "mappings": {
-        "_default_": {
-            "_all": { "enabled": false },
-            "_source": { "compress": true },
-            "dynamic_templates": [
-                {
-                    "string_template" : {
-                        "match" : "*",
-                        "mapping": { "type": "string", "index": "not_analyzed" },
-                        "match_mapping_type" : "string"
-                     }
-                 }
-             ],
-             "properties" : {
-                "@fields": { "type": "object", "dynamic": true, "path": "full" },
-                "@message" : { "type" : "string", "index" : "analyzed" },
-                "@source" : { "type" : "string", "index" : "not_analyzed" },
-                "@source_host" : { "type" : "string", "index" : "not_analyzed" },
-                "@source_path" : { "type" : "string", "index" : "not_analyzed" },
-                "@tags": { "type": "string", "index" : "not_analyzed" },
-                "@timestamp" : { "type" : "date", "index" : "not_analyzed" },
-                "@type" : { "type" : "string", "index" : "not_analyzed" }
-            }
+    "number_of_shards": 5,
+    "number_of_replicas": 1
+  },
+  "template": "logstash-*",
+  "mappings": {
+    "_default_": {
+      "_source": {"compress": true},
+      "dynamic_templates": [
+        {
+          "string_template": {
+            "mapping": {"index": "not_analyzed", "type": "string"},
+            "match_mapping_type": "string",
+            "match": "*"
+          }
         }
+      ],
+      "properties": {
+        "@source_host": {"index": "not_analyzed", "type": "string"},
+        "@type": {"index": "not_analyzed", "type": "string"},
+        "@timestamp": {"index": "not_analyzed", "type": "date"},
+        "@message": {"index": "analyzed", "type": "string"},
+        "@source_path": {"index": "not_analyzed", "type": "string"},
+        "@source": {"index": "not_analyzed", "type": "string"},
+        "@fields": {"path": "full", "dynamic": true, "type": "object"},
+        "@tags": {"index": "not_analyzed", "type": "string"}
+      },
+      "_all": {"enabled": false}
     }
+  }
 }

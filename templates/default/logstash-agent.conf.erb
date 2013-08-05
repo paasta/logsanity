@@ -6,10 +6,14 @@ def to_config(list)
     out + obj.map do |(name, config)|
       chunk = []
       chunk << "  #{name} {"
-      config.sort.each do |k, v|
-        key = k.class.to_s == 'Regex' ? k.inspect : k.to_s
-        value = (["Hash", "Mash"].include?(v.class.to_s) ? v.to_a.flatten : v).inspect
-        chunk << "    #{key} => #{value}"
+      config.sort.each do |key, value|
+        if value.kind_of?(Hash)
+          value.each_pair do |k, v|
+            chunk << "    #{key} => #{[k,v].inspect}"
+          end
+        else
+          chunk << "    #{key} => #{value.inspect}"
+        end
       end
       chunk << '  }'
       chunk.join("\n")
