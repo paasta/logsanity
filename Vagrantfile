@@ -9,7 +9,8 @@
 chef_config = {}
 local_config = File.expand_path('../config/local.json', __FILE__)
 if File.exist? local_config
-  chef_config = MultiJson.load File.read(local_config)
+  require 'json'
+  chef_config = JSON.load File.read(local_config)
 end
 
 Vagrant.configure("2") do |config|
@@ -19,6 +20,7 @@ Vagrant.configure("2") do |config|
     "https://s3.amazonaws.com/mediacore-public/boxes/ec2-precise64.box"
 
   config.vm.network :forwarded_port, guest: 80, host: 8080
+  config.vm.network :forwarded_port, guest: 9200, host: 9200
 
   # Makes chef availabe on the host
   config.vm.provision :shell, path: 'script/vagrant-bootstrap'
