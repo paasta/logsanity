@@ -19,8 +19,9 @@ console log
 <%
    args = []
    args << '-server'
-   args << '-jar'
-   args << @logstash_jar
+   args << '-cp'
+   args << "#{@logstash_jar}:#{node['logstash']['base_dir']}/cloud-aws-plugin/*"
+   args << 'logstash.runner'
    args << 'agent'
    args << '--config'
    args << "#{node['logstash']['config_dir']}/#{@name}.conf"

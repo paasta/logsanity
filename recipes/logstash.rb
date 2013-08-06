@@ -1,4 +1,5 @@
 include_recipe 'base'
+include_recipe 'ark'
 include_recipe 'java'
 
 logstash_jar = File.join(
@@ -20,35 +21,43 @@ end
   node['logstash']['base_dir'],
   node['logstash']['config_dir'],
   node['logstash']['pattern_dir'],
-  node['logstash']['log_dir']
+  File.dirname(logstash_jar)
 ].each do |dir|
   directory dir do
-    owner node['logstash']['user']
-    group node['logstash']['group']
     mode '0755'
     recursive true
   end
 end
 
-directory File.dirname(logstash_jar) do
+directory node['logstash']['log_dir'] do
   owner node['logstash']['user']
   group node['logstash']['group']
   mode '0755'
+  recursive true
 end
 
 remote_file logstash_jar do
   source node['logstash']['package_url']
-  owner node['logstash']['user']
-  group node['logstash']['group']
   mode '0644'
   action :create_if_missing
+end
+
+ark "cloud-aws-plugin" do
+  version           node['logstash']['cloud-aws-plugin']['version']
+  url               node['logstash']['cloud-aws-plugin']['download_url']
+  prefix_home       node['logstash']['base_dir']
+  strip_leading_dir false
+  action            :install
+end
+
+template "#{node['logstash']['config_dir']}/elasticsearch.yml" do
+  source    "logstash-elasticsearch.yml.erb"
+  mode      0644
 end
 
 node['logstash']['patterns'].each_pair do |key, patterns|
   data = patterns.sort.collect {|name, pattern| "#{name} #{pattern}" }.join("\n")
   file "#{node['logstash']['pattern_dir']}/#{key}" do
-    owner node['logstash']['user']
-    group node['logstash']['group']
     mode '0644'
     content data
   end
@@ -80,8 +89,6 @@ node['logstash']['config'].each_pair do |key, config|
 
     template "#{node['logstash']['config_dir']}/#{key}.conf" do
       source 'logstash-agent.conf.erb'
-      owner node['logstash']['user']
-      group node['logstash']['group']
       mode '0644'
       variables(
         config: config

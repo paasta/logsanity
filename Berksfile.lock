@@ -13,6 +13,9 @@
       "git": "git://github.com/elasticsearch/cookbook-elasticsearch.git",
       "ref": "62f3b952ad56431ca64473b550bae65694b84b98"
     },
+    "ark": {
+      "locked_version": "0.3.0"
+    },
     "java": {
       "locked_version": "1.11.6"
     },
@@ -57,9 +60,6 @@
     },
     "monit": {
       "locked_version": "0.7.1"
-    },
-    "ark": {
-      "locked_version": "0.3.0"
     }
   }
 }

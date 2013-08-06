@@ -33,6 +33,6 @@ output {
 <%= to_config(@config['outputs']) %>
   elasticsearch {
     embedded => false
-    cluster => "<%= node['logstash']['elasticsearch_cluster'] %>"
+    cluster => "<%= node['logstash']['elasticsearch']['cluster']['name'] %>"
   }
 }
