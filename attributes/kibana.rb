@@ -6,6 +6,6 @@ default['kibana']['git']['reference'] = 'd3b0a6a0d98edde491609d5205782809557e838
 default['kibana']['htpasswd'] = <<HTPASSWD
 admin:$apr1$Rm275vmP$VYpcezUUYN9SYZAgw8VZt0
 HTPASSWD
-default['kibana']['elasticsearch_servers'] = [];
+default['kibana']['elasticsearch_servers'] = ['127.0.0.1:9200'];
 
 set['nginx']['default_site_enabled'] = false
