@@ -11,13 +11,15 @@ install_plugin 'lukas-vlcek/bigdesk/2.2.1'
 
 # Setup the logstash index template
 template_path = '/tmp/logstash-template.json'
-template template_path do
-  mode "0644"
-end
 execute "install-logstash-template" do
   command "curl -XPUT 'http://127.0.0.1:9200/_template/logstash/' -d @#{template_path}"
   retries 6
   retry_delay 10
+  action :nothing
+end
+template template_path do
+  mode "0644"
+  notifies :run, "execute[install-logstash-template]"
 end
 
 # Setup the logstash index cleaner
