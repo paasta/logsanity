@@ -1,5 +1,9 @@
 <%
-def to_config(list)
+def agent_inspect(obj)
+  obj.inspect.gsub('\\\\', '\\')
+end
+
+def agent_config(list)
   return '' unless list
 
   list.inject([]) do |out, obj|
@@ -9,10 +13,10 @@ def to_config(list)
       config.sort.each do |key, value|
         if value.kind_of?(Hash)
           value.each_pair do |k, v|
-            chunk << "    #{key} => #{[k,v].inspect}"
+            chunk << "    #{key} => #{agent_inspect [k,v]}"
           end
         else
-          chunk << "    #{key} => #{value.inspect}"
+          chunk << "    #{key} => #{agent_inspect value}"
         end
       end
       chunk << '  }'
@@ -32,15 +36,15 @@ end
 
 -%>
 input {
-<%= to_config(inputs) %>
+<%= agent_config(inputs) %>
 }
 
 filter {
-<%= to_config(@config['filters']) %>
+<%= agent_config(@config['filters']) %>
 }
 
 output {
-<%= to_config(@config['outputs']) %>
+<%= agent_config(@config['outputs']) %>
   elasticsearch {
     embedded => false
     cluster => "<%= node['logstash']['elasticsearch']['cluster']['name'] %>"
