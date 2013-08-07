@@ -14,8 +14,8 @@ git node['kibana']['base_dir'] do
   action :checkout
 end
 
-template File.join(node['kibana']['base_dir'], 'config.json') do
-  source 'kibana-config.json.erb'
+template File.join(node['kibana']['base_dir'], 'config.js') do
+  source 'kibana-config.js.erb'
   mode '0644'
 end
 
