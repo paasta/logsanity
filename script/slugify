@@ -19,7 +19,7 @@ depend Dependfile build
 ## Copying the release files ##
 rm -rf "$DESTDIR"
 mkdir -p "$DESTDIR"
-cp -r * "$DESTDIR"
+git archive HEAD | tar -x -C "$DESTDIR"
 cd "$DESTDIR"
 rm -rf config/
 
