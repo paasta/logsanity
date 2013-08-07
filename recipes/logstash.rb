@@ -55,6 +55,19 @@ template "#{node['logstash']['config_dir']}/elasticsearch.yml" do
   mode      0644
 end
 
+# Setup the logstash index template
+template_path = '/tmp/logstash-template.json'
+execute "install-logstash-template" do
+  command "curl -XPUT 'http://#{node['logsanity']['elasticsearch_servers'].first}/_template/logstash/' -d @#{template_path}"
+  retries 6
+  retry_delay 10
+  action :nothing
+end
+template template_path do
+  mode "0644"
+  notifies :run, "execute[install-logstash-template]"
+end
+
 node['logstash']['patterns'].each_pair do |key, patterns|
   data = patterns.sort.collect {|name, pattern| "#{name} #{pattern}" }.join("\n")
   file "#{node['logstash']['pattern_dir']}/#{key}" do
@@ -73,6 +86,8 @@ node['logstash']['config'].each_pair do |key, config|
     action :nothing
   end
 
+  template_url = "http://#{node['logsanity']['elasticsearch_servers'].first}/_template/logstash-#{key}"
+
   # Remove a logstash config by using an empty config
   if config.empty?
 
@@ -85,13 +100,19 @@ node['logstash']['config'].each_pair do |key, config|
       action :delete
     end
 
+    http_request "remove-#{key}-template" do
+      url template_url
+      action :delete
+    end
+
   else
 
     template "#{node['logstash']['config_dir']}/#{key}.conf" do
       source 'logstash-agent.conf.erb'
       mode '0644'
       variables(
-        config: config
+        config: config,
+        name: key,
       )
       notifies :restart, "service[#{service_name}]"
     end
@@ -104,6 +125,19 @@ node['logstash']['config'].each_pair do |key, config|
         name: key,
       )
       notifies :restart, "service[#{service_name}]"
+    end
+
+    http_request "install-#{key}-template" do
+      url template_url
+      action :put
+      message(
+        "template" => "logstash-*",
+        "order" => 50,
+        "mappings" => {
+          key => config['mapping']
+        }
+      )
+      only_if { config['mapping'] }
     end
 
   end

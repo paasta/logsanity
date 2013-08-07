@@ -26,6 +26,9 @@ end
 
 template '/etc/nginx/sites-available/kibana.conf' do
   mode '0644'
+  variables(
+    servers: node['logsanity']['elasticsearch_servers']
+  )
 end
 
 nginx_site 'kibana.conf'

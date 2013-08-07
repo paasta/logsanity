@@ -3,7 +3,7 @@
 #
 
 upstream elasticsearch {
-  <% for server in node['kibana']['elasticsearch_servers'] %>
+  <% for server in @servers %>
   server <%= server %>;
   <% end %>
 }

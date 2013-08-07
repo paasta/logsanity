@@ -20,9 +20,19 @@ def to_config(list)
     end
   end.join("\n\n")
 end
+
+# Force the type to the index type
+inputs = @config['inputs'].inject([]) do |inputs_, input|
+  raise "Woops, more than one key" if input.keys.size > 1
+  key = input.keys.first
+  input = input[key].dup
+  input['type'] = @name
+  inputs_ + [{key => input}]
+end
+
 -%>
 input {
-<%= to_config(@config['inputs']) %>
+<%= to_config(inputs) %>
 }
 
 filter {
