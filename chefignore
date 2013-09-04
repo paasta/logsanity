@@ -94,3 +94,9 @@ Vagrantfile
 # Travis #
 ##########
 .travis.yml
+
+# Ploy #
+########
+.ploy
+config
+script
