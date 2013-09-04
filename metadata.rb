@@ -6,12 +6,10 @@ description      "Logging for all !"
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          "0.1"
 
-%w[
-  ark
-  base
-  elasticsearch
-  java
-  nginx
-].each { |cb| depends cb }
+depends          "ark"
+depends          "base"
+depends          "elasticsearch"
+depends          "java"
+depends          "nginx"
 
 supports 'ubuntu'
