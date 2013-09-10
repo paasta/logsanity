@@ -6,13 +6,6 @@
 # And also install the berkshelf plugin:
 #   `vagrant plugin install berkshelf-vagrant`
 
-chef_config = {}
-local_config = File.expand_path('../config/local.json', __FILE__)
-if File.exist? local_config
-  require 'json'
-  chef_config = JSON.load File.read(local_config)
-end
-
 Vagrant.configure("2") do |config|
   config.berkshelf.enabled = true
   config.vm.box = "ec2-precise64"
@@ -27,6 +20,8 @@ Vagrant.configure("2") do |config|
 
   config.vm.provision :chef_solo do |chef|
     chef.add_recipe "logsanity"
-    chef.json = chef_config
+
+    local_config = File.expand_path('../config/local.json', __FILE__)
+    chef.json = JSON.load File.read(local_config) if File.exists?(local_config)
   end
 end
