@@ -56,7 +56,7 @@ template "#{node['logstash']['config_dir']}/elasticsearch.yml" do
 end
 
 # Setup the logstash index template
-template_path = '/tmp/logstash-template.json'
+template_path = "#{node['logstash']['config_dir']}/logstash-template.json"
 execute "install-logstash-template" do
   command "curl -XPUT 'http://#{node['logsanity']['elasticsearch_servers'].first}/_template/logstash/' -d @#{template_path}"
   retries 6
@@ -65,7 +65,7 @@ execute "install-logstash-template" do
 end
 template template_path do
   mode "0644"
-  notifies :run, "execute[install-logstash-template]"
+  notifies :run, "execute[install-logstash-template]", :delayed
 end
 
 node['logstash']['patterns'].each_pair do |key, patterns|
@@ -86,7 +86,8 @@ node['logstash']['config'].each_pair do |key, config|
     action :nothing
   end
 
-  template_url = "http://#{node['logsanity']['elasticsearch_servers'].first}/_template/logstash-#{key}"
+  template_url  = "http://#{node['logsanity']['elasticsearch_servers'].first}/_template/logstash-#{key}"
+  template_path = "#{node['logstash']['config_dir']}/#{key}-template.json"
 
   # Remove a logstash config by using an empty config
   if config.empty?
@@ -127,17 +128,25 @@ node['logstash']['config'].each_pair do |key, config|
       notifies :restart, "service[#{service_name}]"
     end
 
-    http_request "install-#{key}-template" do
-      url template_url
-      action :put
-      message(
-        "template" => "logstash-*",
-        "order" => 50,
-        "mappings" => {
-          key => config['mapping']
-        }
+    execute "install-#{key}-template" do
+      command "curl -XPUT '#{template_url}' -d @#{template_path}"
+      retries 6
+      retry_delay 10
+      action :nothing
+    end
+    file template_path do
+      mode "0644"
+      content(
+        {
+          "template" => "logstash-*",
+          "order" => 50,
+          "mappings" => {
+            key => config['mapping']
+          }
+        }.to_json(JSON::PRETTY_STATE_PROTOTYPE.to_h) + "\n"
       )
       only_if { config['mapping'] }
+      notifies :run, "execute[install-#{key}-template]", :delayed
     end
 
   end
