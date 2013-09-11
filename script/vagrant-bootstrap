@@ -16,5 +16,5 @@ apt-get update
 if ! has chef-solo ; then
   wget -nv -c https://www.opscode.com/chef/install.sh
   chmod +x install.sh
-  ./install.sh -v 11.4.4
+  ./install.sh -v 11.6.0
 fi
