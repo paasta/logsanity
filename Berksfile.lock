@@ -6,7 +6,7 @@
     "base": {
       "locked_version": "1.0.0",
       "git": "git://github.com/zimbatm/base-cookbook.git",
-      "ref": "7de6b36717b31831fdc94838fd68f82ea63db41d"
+      "ref": "43f4ae890b68652600e20de71bc640f01a3c2c65"
     },
     "elasticsearch": {
       "locked_version": "0.3.3",
