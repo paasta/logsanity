@@ -21,7 +21,9 @@ Vagrant.configure("2") do |config|
   config.vm.provision :chef_solo do |chef|
     chef.add_recipe "logsanity"
 
-    local_config = File.expand_path('../config/local.json', __FILE__)
-    chef.json = JSON.load File.read(local_config) if File.exists?(local_config)
+    chef_config = JSON.load(File.read 'config/local.json') rescue {}
+    chef_config['elasticsearch'] ||= {}
+    chef_config['elasticsearch']['allocated_memory'] = '200m'
+    chef.json = chef_config
   end
 end
