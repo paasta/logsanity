@@ -1,6 +1,8 @@
 include_recipe 'base'
 include_recipe 'java'
 
+package 'ruby1.9.1-dev'
+
 include_recipe 'elasticsearch::data'
 include_recipe 'elasticsearch'
 include_recipe 'elasticsearch::aws' if node['ec2']
