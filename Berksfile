@@ -2,5 +2,5 @@ site :opscode
 
 metadata
 
-cookbook 'base', github: 'zimbatm/base-cookbook'
+cookbook 'base', github: 'paasta/base-cookbook'
 cookbook 'elasticsearch', github: 'elasticsearch/cookbook-elasticsearch'
