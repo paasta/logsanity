@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+set -e
 . `dirname $0`/ploy-lib.sh
 CONFIG_PATH=`expand_path $1`
 cd `dirname $0`/..
@@ -16,7 +17,4 @@ if ! [ -f "$CONFIG_PATH" ]; then
   fail "Config file not found at $CONFIG_PATH"
 fi
 
-# Install project's runtime dependencies
-depend Dependfile runtime
-
-exec bin/chef-solo -c $PWD/script/chef-solo.rb -j $CONFIG_PATH
+exec chef-solo -c $PWD/script/chef-solo.rb -j $CONFIG_PATH

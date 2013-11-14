@@ -4,25 +4,19 @@ set -e
 
 . `dirname $0`/ploy-lib.sh
 
-CACHE_DIR=`expand_path "$1"`
-DESTDIR=`expand_path "$2"`
+DEST_DIR=`expand_path "$1"`
+CACHE_DIR=`expand_path "$2"`
 
-if [ -z "$DESTDIR" ]; then
+if [ -z "$DEST_DIR" ]; then
   fail "Missing the first argument: the destination path"
 fi
 
 cd `dirname $0`/..
 
-## Build dependencies ##
-depend Dependfile build
-
-## Copying the release files ##
-rm -rf "$DESTDIR"
-mkdir -p "$DESTDIR"
-git archive HEAD | tar -x -C "$DESTDIR"
-cd "$DESTDIR"
-rm -rf config/
+# Build
+rm -rf $DEST_DIR
+git clone $PWD $DEST_DIR
+cd $DEST_DIR
 
 ## Installing the runtime dependencies ##
-bundle install --path=vendor --binstubs=bin --deployment --standalone --without="development test"
 BERKSHELF_PATH=$CACHE_DIR/berkshelf berks install --path vendor/cookbooks
