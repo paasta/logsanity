@@ -4,14 +4,14 @@
       "path": "."
     },
     "base": {
-      "locked_version": "1.0.0",
-      "git": "git://github.com/zimbatm/base-cookbook.git",
-      "ref": "43f4ae890b68652600e20de71bc640f01a3c2c65"
+      "locked_version": "0.3.0",
+      "git": "git://github.com/paasta/base-cookbook.git",
+      "ref": "e5368f364a6e87fc7eb3344ea8711ca6f507b84e"
     },
     "elasticsearch": {
-      "locked_version": "0.3.3",
+      "locked_version": "0.3.7",
       "git": "git://github.com/elasticsearch/cookbook-elasticsearch.git",
-      "ref": "62f3b952ad56431ca64473b550bae65694b84b98"
+      "ref": "b6b4f773e66258e9626e7b0f011758a81f0c47e2"
     },
     "ark": {
       "locked_version": "0.3.0"
@@ -29,13 +29,13 @@
       "locked_version": "1.7.0"
     },
     "build-essential": {
-      "locked_version": "1.4.0"
+      "locked_version": "1.4.2"
     },
     "yum": {
       "locked_version": "2.3.0"
     },
     "apt": {
-      "locked_version": "2.0.0"
+      "locked_version": "2.2.0"
     },
     "runit": {
       "locked_version": "1.1.6"
@@ -44,7 +44,7 @@
       "locked_version": "1.1.10"
     },
     "logrotate": {
-      "locked_version": "1.2.2"
+      "locked_version": "1.3.0"
     },
     "openssh": {
       "locked_version": "1.2.0"

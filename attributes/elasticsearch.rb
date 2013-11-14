@@ -1,4 +1,4 @@
-include_attribute 'base::default'
+include_attribute 'base::hostname'
 
 set['elasticsearch']['cluster']['name'] = 'logsanity'
 set['elasticsearch']['node']['name'] = node['base']['hostname']
