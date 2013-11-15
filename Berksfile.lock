@@ -11,7 +11,7 @@
     "elasticsearch": {
       "locked_version": "0.3.7",
       "git": "git://github.com/elasticsearch/cookbook-elasticsearch.git",
-      "ref": "b6b4f773e66258e9626e7b0f011758a81f0c47e2"
+      "ref": "05e90cc51ca237b42bc68ce148dfd8866efddb6c"
     },
     "ark": {
       "locked_version": "0.3.0"
