@@ -29,7 +29,7 @@ server {
   auth_basic "Restricted";
   auth_basic_user_file /etc/nginx/conf.d/kibana.htpasswd;
 
-  root  <%= node['kibana']['base_dir'] %>;
+  root  <%= node['kibana']['base_dir'] %>/src;
 
   location / {
     try_files $uri $uri/ $uri/index.html @elasticsearch;

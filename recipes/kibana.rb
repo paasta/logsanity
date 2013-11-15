@@ -9,13 +9,18 @@ directory node['kibana']['base_dir'] do
 end
 
 git node['kibana']['base_dir'] do
-  repository node['kibana']['git']['url']
-  reference node['kibana']['git']['reference']
+  repository node['kibana']['git_url']
+  reference node['kibana']['git_ref']
   action :checkout
 end
 
-template File.join(node['kibana']['base_dir'], 'config.js') do
+template node['kibana']['base_dir'] + '/src/config.js' do
   source 'kibana-config.js.erb'
+  mode '0644'
+end
+
+template node['kibana']['base_dir'] + '/src/app/dashboards/default.json' do
+  source 'kibana-default-dashboard.json.erb'
   mode '0644'
 end
 
