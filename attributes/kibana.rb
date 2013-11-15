@@ -7,4 +7,9 @@ default['kibana']['htpasswd'] = <<HTPASSWD
 admin:$apr1$Rm275vmP$VYpcezUUYN9SYZAgw8VZt0
 HTPASSWD
 
+# Contains the .crt file data
+default['kibana']['ssl_crt'] = nil
+# Contains the .key file data - with no password
+default['kibana']['ssl_key'] = nil
+
 set['nginx']['default_site_enabled'] = false

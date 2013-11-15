@@ -24,10 +24,32 @@ file '/etc/nginx/conf.d/kibana.htpasswd' do
   content node['kibana']['htpasswd']
 end
 
+has_ssl = false
+if node['kibana']['ssl_cert'] && node['kibana']['ssl_key']
+  has_ssl = true
+
+  %w[crt key].each do |type|
+    file "/etc/ssl/private/kibana.#{type}" do
+      owner "root"
+      mode "0600"
+      content node['kibana']['ssl_' + type]
+      backup false
+    end
+  end
+else
+  %w[crt key].each do |type|
+    file "/etc/ssl/private/kibana.#{type}" do
+      backup false
+      action :delete
+    end
+  end
+end
+
 template '/etc/nginx/sites-available/kibana.conf' do
   mode '0644'
   variables(
-    servers: node['logsanity']['elasticsearch_servers']
+    servers: node['logsanity']['elasticsearch_servers'],
+    has_ssl: has_ssl
   )
 end
 
