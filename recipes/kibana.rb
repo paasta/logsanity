@@ -30,7 +30,7 @@ file '/etc/nginx/conf.d/kibana.htpasswd' do
 end
 
 has_ssl = false
-if node['kibana']['ssl_cert'] && node['kibana']['ssl_key']
+if node['kibana']['ssl_crt'] && node['kibana']['ssl_key']
   has_ssl = true
 
   %w[crt key].each do |type|
