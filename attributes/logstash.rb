@@ -13,6 +13,7 @@ default['logstash']['cloud-aws-plugin']['version'] = '1.12.0'
 default['logstash']['cloud-aws-plugin']['download_url'] = "https://download.elasticsearch.org/elasticsearch/elasticsearch-cloud-aws/elasticsearch-cloud-aws-#{node['logstash']['cloud-aws-plugin']['version']}.zip"
 default['logstash']['elasticsearch']['cluster']['name'] = node['elasticsearch']['cluster']['name']
 default['logstash']['elasticsearch']['discovery']['ec2']['groups'] = node['elasticsearch']['discovery']['ec2']['groups']
+default['logstash']['elasticsearch']['discovery']['ec2']['tag'] = node['elasticsearch']['discovery']['ec2']['tag']
 default['logstash']['elasticsearch']['cloud']['aws']['access_key'] = node['elasticsearch']['cloud']['aws']['access_key']
 default['logstash']['elasticsearch']['cloud']['aws']['secret_key'] = node['elasticsearch']['cloud']['aws']['secret_key']
 default['logstash']['elasticsearch']['cloud']['aws']['region'] = node['elasticsearch']['cloud']['aws']['region']
