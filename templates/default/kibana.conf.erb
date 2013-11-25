@@ -11,7 +11,7 @@ upstream elasticsearch {
 server {
   listen                *:80 ;
 <% if @has_ssl %>
-  rewrite ^ https://$server_name$request_uri? permanent;
+  rewrite ^ https://$host$request_uri? permanent;
 }
 
 server {
