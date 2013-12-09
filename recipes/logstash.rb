@@ -76,6 +76,12 @@ node['logstash']['patterns'].each_pair do |key, patterns|
   end
 end
 
+directory node['logstash']['log_collection_dir'] do
+  owner "syslog"
+  group "adm"
+  mode 0755
+end
+
 node['logstash']['config'].each_pair do |key, config|
   raise "config['inputs'] must be specified for #{key}" unless config['inputs']
   service_name = "logstash-#{key}"
@@ -106,13 +112,37 @@ node['logstash']['config'].each_pair do |key, config|
       action :delete
     end
 
+    # TODO: Remove the rsyslog config
+
   else
+    inputs = config['inputs']
+    filters = config['filters']
+    outputs = config['outputs']
+
+    inputs.each do |input|
+      type = input.keys.first
+      port = input[type]['port']
+      name = [key, input[type]['tags']].flatten.compact.join('-')
+
+      template "/etc/rsyslog.d/60-#{name}.conf" do
+        source "logstash-agent-rsyslog.conf.erb"
+        variables(
+          name: name,
+          type: type,
+          port: port,
+          log_root: node['logstash']['log_collection_dir'],
+        )
+        notifies :restart, "service[rsyslog]"
+      end
+    end
 
     template "#{node['logstash']['config_dir']}/#{key}.conf" do
       source 'logstash-agent.conf.erb'
       mode '0644'
       variables(
-        config: config,
+        inputs: inputs,
+        filters: filters,
+        outputs: outputs,
         name: key,
       )
       notifies :restart, "service[#{service_name}]"
