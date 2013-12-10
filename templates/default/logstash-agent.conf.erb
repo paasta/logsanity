@@ -42,6 +42,9 @@ input {
 }
 
 filter {
+  mutate {
+    remove => ["@source", "@source_path"]
+  }
 <%= agent_config(@filters) %>
 }
 
