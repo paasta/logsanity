@@ -55,6 +55,13 @@ template "#{node['logstash']['config_dir']}/elasticsearch.yml" do
   mode      0644
 end
 
+template "/etc/rsyslog.conf" do
+  source    "logstash-rsyslog.conf.erb"
+  owner     "root"
+  mode      0644
+  notifies :restart, "service[rsyslog]"
+end
+
 # Setup the logstash index template
 template_path = "#{node['logstash']['config_dir']}/logstash-template.json"
 execute "install-logstash-template" do
