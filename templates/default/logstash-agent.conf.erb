@@ -26,11 +26,13 @@ def agent_config(list)
 end
 
 # Force the type to the index type
-inputs = @config['inputs'].inject([]) do |inputs_, input|
+inputs = @inputs.inject([]) do |inputs_, input|
   raise "Woops, more than one key" if input.keys.size > 1
   key = input.keys.first
   input = input[key].dup
   input['type'] = @name
+  # Because we get the logs from rsyslog
+  input['host'] = 'localhost'
   inputs_ + [{key => input}]
 end
 
@@ -40,11 +42,14 @@ input {
 }
 
 filter {
-<%= agent_config(@config['filters']) %>
+  mutate {
+    remove => ["@source", "@source_path"]
+  }
+<%= agent_config(@filters) %>
 }
 
 output {
-<%= agent_config(@config['outputs']) %>
+<%= agent_config(@outputs) %>
   elasticsearch {
     embedded => false
     cluster => "<%= node['logstash']['elasticsearch']['cluster']['name'] %>"

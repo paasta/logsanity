@@ -4,6 +4,7 @@ default['logstash']['base_dir'] = '/opt/logstash'
 default['logstash']['config_dir'] = '/etc/logstash'
 default['logstash']['pattern_dir'] = '/etc/logstash/patterns'
 default['logstash']['log_dir'] = '/var/log/logstash'
+default['logstash']['log_collection_dir'] = '/mnt/logs'
 default['logstash']['patterns'] = Mash.new
 default['logstash']['config'] = Mash.new
 default['logstash']['days_to_keep'] = 7

@@ -1,0 +1,30 @@
+
+$RuleSet <%= @name %>
+
+$template T<%= @name %>,"<%= @log_root %>/<%= @name %>/%$YEAR%-%$MONTH%-%$DAY%/%HOSTNAME%.log"
+*.* ?T<%= @name %>
+& <%= @type == 'udp' ? '@' : '@@' %>localhost:<%= @port %>;RSYSLOG_ForwardFormat
+
+<%
+case @type
+when "udp"
+%>
+$ModLoad imudp
+$InputUDPServerBindRuleset <%= @name %>
+$UDPServerAddress <%= node['ipaddress'] %>
+$UDPServerRun <%= @port %>
+<%
+when "tcp"
+%>
+$ModLoad imtcp
+$InputTCPServerBindRuleset <%= @name %>
+$TCPServerAddress <%= node['ipaddress'] %>
+$InputTCPServerRun <%= @port %>
+<%
+else
+  fail("unknown type #{@type} for #{@name}")
+end
+%>
+
+# switch back to the default ruleset
+$RuleSet RSYSLOG_DefaultRuleset
