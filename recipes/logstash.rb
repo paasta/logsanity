@@ -186,5 +186,14 @@ node['logstash']['config'].each_pair do |key, config|
       notifies :run, "execute[install-#{key}-template]", :delayed
     end
 
+    logrotate_app service_name do
+      cookbook  'logrotate'
+      path "/var/log/logstash/#{key}.log"
+      options   ['missingok', 'delaycompress', 'notifempty', 'copytruncate']
+      frequency 'daily'
+      rotate 7
+      create '644 logstash logstash'
+    end
+
   end
 end

@@ -10,6 +10,7 @@ depends          "ark"
 depends          "base"
 depends          "elasticsearch"
 depends          "java"
+depends          "logrotate"
 depends          "nginx"
 
 supports 'ubuntu'
