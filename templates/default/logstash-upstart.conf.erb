@@ -25,7 +25,6 @@ console log
    args << 'agent'
    args << '--config'
    args << "#{node['logstash']['config_dir']}/#{@name}.conf"
-   args << '-v'
    args << '--log'
    args << "#{node['logstash']['log_dir']}/#{@name}.log"
 %>
