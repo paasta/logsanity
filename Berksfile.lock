@@ -4,9 +4,9 @@
       "path": "."
     },
     "base": {
-      "locked_version": "0.3.0",
+      "locked_version": "0.4.0",
       "git": "git://github.com/paasta/base-cookbook.git",
-      "ref": "e5368f364a6e87fc7eb3344ea8711ca6f507b84e"
+      "ref": "d881f8fb9a34616e10e7f9b76c9286e6d8c3f6b0"
     },
     "elasticsearch": {
       "locked_version": "0.3.7",
@@ -25,6 +25,9 @@
     "chef_handler": {
       "locked_version": "1.1.4"
     },
+    "logrotate": {
+      "locked_version": "1.3.0"
+    },
     "nginx": {
       "locked_version": "1.7.0"
     },
@@ -42,9 +45,6 @@
     },
     "ohai": {
       "locked_version": "1.1.10"
-    },
-    "logrotate": {
-      "locked_version": "1.3.0"
     },
     "openssh": {
       "locked_version": "1.2.0"
