@@ -43,7 +43,7 @@ input {
 
 filter {
   mutate {
-    remove => ["@source", "@source_path"]
+    remove_field => ["host"]
   }
 <%= agent_config(@filters) %>
 }
