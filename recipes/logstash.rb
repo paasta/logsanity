@@ -62,19 +62,6 @@ template "/etc/rsyslog.conf" do
   notifies :restart, "service[rsyslog]"
 end
 
-# Setup the logstash index template
-template_path = "#{node['logstash']['config_dir']}/logstash-template.json"
-execute "install-logstash-template" do
-  command "curl -XPUT 'http://#{node['logsanity']['elasticsearch_servers'].first}/_template/logstash/' -d @#{template_path}"
-  retries 6
-  retry_delay 10
-  action :nothing
-end
-template template_path do
-  mode "0644"
-  notifies :run, "execute[install-logstash-template]", :delayed
-end
-
 node['logstash']['patterns'].each_pair do |key, patterns|
   data = patterns.sort.collect {|name, pattern| "#{name} #{pattern}" }.join("\n")
   file "#{node['logstash']['pattern_dir']}/#{key}" do
