@@ -42,9 +42,6 @@ input {
 }
 
 filter {
-  mutate {
-    remove_field => ["host"]
-  }
 <%= agent_config(@filters) %>
 }
 
