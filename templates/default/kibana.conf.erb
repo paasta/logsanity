@@ -4,8 +4,10 @@
 
 upstream elasticsearch {
   <% for server in @servers %>
-  server <%= server %>;
+  server <%= server %> fail_timeout=1s max_fails=2;
   <% end %>
+
+  keepalive 512;
 }
 
 server {
