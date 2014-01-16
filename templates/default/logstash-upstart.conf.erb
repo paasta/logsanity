@@ -27,7 +27,6 @@ console log
    args << "#{node['logstash']['config_dir']}/#{@name}.conf"
    args << '--log'
    args << "#{node['logstash']['log_dir']}/#{@name}.log"
-   args << '--verbose'
 %>
 
 exec java <%= args.join(' ') %>
