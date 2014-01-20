@@ -1,6 +1,6 @@
 default['kibana']['base_dir'] = '/opt/kibana'
-default['kibana']['git_url'] = 'https://github.com/elasticsearch/kibana.git'
-default['kibana']['git_ref'] = 'v3.0.0milestone4'
+default['kibana']['git_url'] = 'https://github.com/paasta/kibana.git'
+default['kibana']['git_ref'] = 'logsanity'
 # http://wiki.nginx.org/Faq#How_do_I_generate_an_.htpasswd_file_without_having_Apache_tools_installed.3F
 # printf "admin:$(openssl passwd -apr1 admin)\n"
 default['kibana']['htpasswd'] = <<HTPASSWD

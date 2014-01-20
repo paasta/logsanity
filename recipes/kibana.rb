@@ -14,16 +14,6 @@ git node['kibana']['base_dir'] do
   action :checkout
 end
 
-template node['kibana']['base_dir'] + '/src/config.js' do
-  source 'kibana-config.js.erb'
-  mode '0644'
-end
-
-template node['kibana']['base_dir'] + '/src/app/dashboards/default.json' do
-  source 'kibana-default-dashboard.json.erb'
-  mode '0644'
-end
-
 file '/etc/nginx/conf.d/kibana.htpasswd' do
   mode '0644'
   content node['kibana']['htpasswd']
