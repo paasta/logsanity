@@ -1,5 +1,19 @@
 #!/bin/bash
+# This script should be run daily to clean old indexes.
+#
+# NOTE: this script only works with GNU date.
 set -e
+# Number of days to keep
 num_days=<%= node['logstash']['days_to_keep'] %>
-index="logstash-$(date --date="@$(expr $(date +%s) - $num_days '*' 24 '*' 60 '*' 60)" +%Y.%m.%d)"
+
+# Dates
+YESTERDAY=$(date -u --date='yesterday' +%Y.%m.%d)
+OLDESTDAY=$(date -u --date="$((num_days+1)) days ago" +%Y.%m.%d)
+
+# Optimize yesterday's index for search
+index="logstash-$YESTERDAY"
+curl -f -s -o /dev/null -XPOST http://127.0.0.1:9200/$index/_optimize
+
+# Remove the old index
+index="logstash-$OLDESTDAY"
 curl -f -s -o /dev/null -XDELETE http://127.0.0.1:9200/$index
