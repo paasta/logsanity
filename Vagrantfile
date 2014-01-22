@@ -8,9 +8,9 @@
 
 Vagrant.configure("2") do |config|
   config.berkshelf.enabled = true
-  config.vm.box = "base-0.3.0"
+  config.vm.box = "base-0.4.0"
   config.vm.box_url =
-    "http://paasta-boxes.s3.amazonaws.com/base-0.3.0-amd64-20131028-virtualbox.box"
+    "http://paasta-boxes.s3.amazonaws.com/base-0.4.0-amd64-20131218-virtualbox.box"
 
   config.vm.network :forwarded_port, guest: 80, host: 8080
   config.vm.network :forwarded_port, guest: 9200, host: 9200
