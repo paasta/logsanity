@@ -12,8 +12,17 @@ upstream elasticsearch {
 
 server {
   listen                *:80 ;
+  location /nginx_status {
+    # copied from http://blog.kovyrin.net/2006/04/29/monitoring-nginx-with-rrdtool/
+    stub_status on;
+    access_log   off;
+    allow 127.0.0.1;
+    deny all;
+  }
 <% if @has_ssl %>
-  rewrite ^ https://$host$request_uri? permanent;
+  location / {
+    rewrite ^ https://$host$request_uri? permanent;
+  }
 }
 
 server {
