@@ -2,7 +2,7 @@
 $RuleSet <%= @name %>
 
 $template T<%= @name %>,"<%= @log_root %>/<%= @name %>/%$YEAR%-%$MONTH%-%$DAY%/%HOSTNAME%.log"
-*.* ?T<%= @name %>
+*.* ?T<%= @name %>;RSYSLOG_ForwardFormat
 & <%= @type == 'udp' ? '@' : '@@' %>localhost:<%= @port %>;RSYSLOG_ForwardFormat
 
 <%
