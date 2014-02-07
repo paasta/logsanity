@@ -21,7 +21,7 @@ $ModLoad imklog   # provides kernel logging support
 ###################
 
 # The same as the RSYSLOG_ForwardFormat except that lines are separated by \n
-$template Disk_ForwardFormat,"<%PRI%>%TIMESTAMP:::date-rfc3339% %HOSTNAME% %syslogtag:1:32%%msg:::sp-if-no-1st-sp%%msg%\n" 
+$template Disk_ForwardFormat,"<%="<%PRI%"%>>%TIMESTAMP:::date-rfc3339% %HOSTNAME% %syslogtag:1:32%%msg:::sp-if-no-1st-sp%%msg%\n"
 
 ###########################
 #### GLOBAL DIRECTIVES ####
