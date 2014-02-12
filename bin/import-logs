@@ -1,0 +1,60 @@
+#!/opt/chef/embedded/bin/ruby
+
+require 'optparse'
+require 'tempfile'
+
+c = Struct.new(:type, :tag, :glob).new(nil, nil, '**/*.log')
+
+OptionParser.new do |opt|
+  opt.on('--type TYPE'){|x|c.type=x}
+  opt.on('--tag TAG'){|x|c.tag=x}
+  opt.on('--glob GLOB') {|x|c.glob=x}
+end.parse!
+
+raise 'type missing' unless c.type
+raise 'tag missing' unless c.tag
+
+puts "Preparing the logstash config"
+
+orig_config = IO.read("/etc/logstash/#{c.type}.conf")
+
+input_end = orig_config.index(/^}$/)
+
+config = <<CONFIG
+input {
+  stdin {
+    tags => ["#{c.tag}"]
+    type => "#{c.type}"
+  }
+}
+#{orig_config[input_end+1..-1]}
+CONFIG
+
+tmp_config = Tempfile.new("#{c.type}.conf")
+tmp_config.write config
+
+at_exit{ tmp_config.unlink }
+
+puts "Preparing the logstash agent"
+
+r, w = IO.pipe
+pid = fork do
+  w.close
+  $stdin = r
+  Dir.chdir('/etc/logstash')
+
+  # XXX: Get that line from the init script ?
+  exec "java", "-server", "-cp", "/opt/logstash/aa93dd9b3d7ce945b7b30672f5c30015/logstash-1.3.2-flatjar.jar:/opt/logstash/cloud-aws-plugin/*", "logstash.runner", "agent", "--config", tmp_config.path, "--verbose"
+end
+r.close
+
+puts "Logstash started"
+
+Dir["/mnt/logs/#{c.type}-#{c.tag}/#{c.glob}"].each do |file|
+  puts "Indexing #{file}"
+  open(file) {|f| IO.copy_stream(f, w) }
+end
+
+Process.kill pid
+puts "Waiting on #{pid}"
+Process.wait pid
