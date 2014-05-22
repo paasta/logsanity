@@ -182,5 +182,14 @@ node['logstash']['config'].each_pair do |key, config|
       create '644 logstash logstash'
     end
 
+    # log rotate the raw logfiles as well as the standard output logs from the logstash services
+    logrotate_app service_name do
+      path "#{node['logstash']['log_collection_dir']}/#{key}*/*/*"
+      options   ['missingok', 'compress', 'notifempty', 'copytruncate']
+      frequency 'daily'
+      rotate 30
+      create '644 logstash logstash'
+    end
+
   end
 end
