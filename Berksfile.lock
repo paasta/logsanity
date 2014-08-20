@@ -9,9 +9,9 @@
       "ref": "9f33670a29ced77219b1216016c6dfcfde31d57c"
     },
     "elasticsearch": {
-      "locked_version": "0.3.7",
+      "locked_version": "0.3.8",
       "git": "git://github.com/elasticsearch/cookbook-elasticsearch.git",
-      "ref": "05e90cc51ca237b42bc68ce148dfd8866efddb6c"
+      "ref": "15c51a61abd659943d4879822f773bd8e5e672cf"
     },
     "ark": {
       "locked_version": "0.3.0"
