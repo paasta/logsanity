@@ -1,7 +1,3 @@
-execute "Install uri_redirect gem" do
-  command "/opt/chef/embedded/bin/gem open_uri_redirections"
-end
-
 include_recipe 'base'
 include_recipe 'ark'
 include_recipe 'java'
