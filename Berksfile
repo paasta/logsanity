@@ -8,5 +8,5 @@ cookbook 'base',
 
 cookbook 'elasticsearch',
   github: 'elasticsearch/cookbook-elasticsearch',
-  branch: '0.3.7'
+  branch: '0.3.8'
 
