@@ -4,7 +4,7 @@ metadata
 
 cookbook 'base',
   github: 'paasta/base-cookbook',
-  branch: 'v0.4.2'
+  branch: 'master'
 
 cookbook 'elasticsearch',
   github: 'elasticsearch/cookbook-elasticsearch',
