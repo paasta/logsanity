@@ -184,7 +184,7 @@ node['logstash']['config'].each_pair do |key, config|
 
     # log rotate the raw logfiles as well as the standard output logs from the logstash services
     logrotate_app "#{service_name}-rawlogs" do
-      path "#{node['logstash']['log_collection_dir']}/#{key}*/*/*"
+      path "#{node['logstash']['log_collection_dir']}/#{key}*/*/*.log"
       options   ['missingok', 'compress', 'notifempty', 'copytruncate']
       frequency 'daily'
       rotate 30
