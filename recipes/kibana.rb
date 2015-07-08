@@ -43,4 +43,15 @@ template '/etc/nginx/sites-available/kibana.conf' do
   )
 end
 
+template '/etc/oauth2_proxy.conf' do
+  mode '0600'
+  variables(
+    client_id: node['kibana']['oauth2_client_id'],
+    client_secret: node['kibana']['oauth2_client_secret'],
+    cookie_secret: node['kibana']['oauth2_cookie_secret'],
+    cookie_domain: node['kibana']['oauth2_cookie_domain']
+  )
+end
+
 nginx_site 'kibana.conf'
+

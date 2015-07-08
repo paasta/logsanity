@@ -1,0 +1,20 @@
+# OAuth2 Proxy Config File
+# https://github.com/bitly/oauth2_proxy
+
+email_domains = [
+    "mediacore.com"
+]
+
+provider = "google"
+client_id = "<%= @client_id %>"
+client_secret = "<%= @client_secret %>"
+
+cookie_secret = "<%= @cookie_secret %>"
+cookie_domain = "<%= @cookie_domain %>"
+cookie_secure = true
+cookie_refresh = "1h"
+
+upstreams = [
+    "http://127.0.0.1:8080"
+]
+
