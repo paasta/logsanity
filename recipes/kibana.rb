@@ -14,11 +14,6 @@ git node['kibana']['base_dir'] do
   action :checkout
 end
 
-file '/etc/nginx/conf.d/kibana.htpasswd' do
-  mode '0644'
-  content node['kibana']['htpasswd']
-end
-
 has_ssl = false
 if node['kibana']['ssl_crt'] && node['kibana']['ssl_key']
   has_ssl = true
