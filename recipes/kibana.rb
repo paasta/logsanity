@@ -59,5 +59,13 @@ cookbook_file '/etc/init/oauth2_proxy.conf' do
   action :create
 end
 
+remote_file '/usr/local/bin/oauth2_proxy' do
+  source 'https://s3.amazonaws.com/mediacore-public/software/oauth2_proxy-2.0.1'
+  checksum '537dfc5bd71a00039c6cb09dcd170f37790d129861e4717253911d0a89bb931b'
+  owner 'root'
+  mode '0755'
+  action :create
+end
+
 nginx_site 'kibana.conf'
 
