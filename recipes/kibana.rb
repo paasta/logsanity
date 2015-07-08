@@ -53,5 +53,11 @@ template '/etc/oauth2_proxy.conf' do
   )
 end
 
+cookbook_file '/etc/init/oauth2_proxy.conf' do
+  source 'oauth2_proxy.conf'
+  mode '0644'
+  action :create
+end
+
 nginx_site 'kibana.conf'
 
