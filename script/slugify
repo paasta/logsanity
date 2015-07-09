@@ -18,5 +18,8 @@ rm -rf $DEST_DIR
 git clone $PWD $DEST_DIR
 cd $DEST_DIR
 
+# workaround http->https redirect issue
+/opt/chef/embedded/bin/gem install berkshelf --version 2.0.18
+
 ## Installing the runtime dependencies ##
 BERKSHELF_PATH=$CACHE_DIR/berkshelf berks install --path vendor/cookbooks
