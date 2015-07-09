@@ -67,5 +67,11 @@ remote_file '/usr/local/bin/oauth2_proxy' do
   action :create
 end
 
+service "oauth2_proxy" do
+  provider Chef::Provider::Service::Upstart
+  supports :status => true
+  action [ :enable, :start ]
+end
+
 nginx_site 'kibana.conf'
 
