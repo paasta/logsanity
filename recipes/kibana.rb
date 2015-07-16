@@ -14,11 +14,6 @@ git node['kibana']['base_dir'] do
   action :checkout
 end
 
-file '/etc/nginx/conf.d/kibana.htpasswd' do
-  mode '0644'
-  content node['kibana']['htpasswd']
-end
-
 has_ssl = false
 if node['kibana']['ssl_crt'] && node['kibana']['ssl_key']
   has_ssl = true
@@ -48,4 +43,35 @@ template '/etc/nginx/sites-available/kibana.conf' do
   )
 end
 
+template '/etc/oauth2_proxy.conf' do
+  mode '0600'
+  variables(
+    client_id: node['kibana']['oauth2_client_id'],
+    client_secret: node['kibana']['oauth2_client_secret'],
+    cookie_secret: node['kibana']['oauth2_cookie_secret'],
+    cookie_domain: node['kibana']['oauth2_cookie_domain']
+  )
+end
+
+cookbook_file '/etc/init/oauth2_proxy.conf' do
+  source 'oauth2_proxy.conf'
+  mode '0644'
+  action :create
+end
+
+remote_file '/usr/local/bin/oauth2_proxy' do
+  source 'https://s3.amazonaws.com/mediacore-public/software/oauth2_proxy-2.0.1'
+  checksum '537dfc5bd71a00039c6cb09dcd170f37790d129861e4717253911d0a89bb931b'
+  owner 'root'
+  mode '0755'
+  action :create
+end
+
+service "oauth2_proxy" do
+  provider Chef::Provider::Service::Upstart
+  supports :status => true
+  action [ :enable, :start ]
+end
+
 nginx_site 'kibana.conf'
+
